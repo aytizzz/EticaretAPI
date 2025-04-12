@@ -1,6 +1,6 @@
 # 🛒 E-Ticarət API
 
-Bu layihə ASP.NET Core ilə hazırlanmış sadə və genişlənə bilən **E-Ticarət RESTful API** sistemidir. İstifadəçilər qeydiyyatdan keçə, məhsulları görə və səbətə əlavə edib sifariş verə bilirlər.
+Bu layihə ASP.NET Core ilə hazırlanmış sadə və genişlənə bilən onion arkitektura ilə yazılmış **E-Ticarət RESTful API** sistemidir. İstifadəçilər qeydiyyatdan keçə, məhsulları görə və səbətə əlavə edib sifariş verə bilirlər.(layihə inkişaf mərhələsindədir)
 
 ## 🚀 Xüsusiyyətlər
 
