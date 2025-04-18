@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EticaretAPI.Application.Abstractions.Services
 {
-    public class IAuthService
+    public interface IAuthenticationService
     {
+        Task <DTOs.Token.Token> loginAsync(string usernameorEmail,string password,int AccessTokenLifeTime);
     }
 }

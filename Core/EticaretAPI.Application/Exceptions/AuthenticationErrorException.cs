@@ -9,11 +9,15 @@ namespace EticaretAPI.Application.Exceptions
 {
     public class AuthenticationErrorException : Exception
     {
-        public AuthenticationErrorException():base("kimlik dogrulamasi hatali")
+        public AuthenticationErrorException():base("kimlik dogrulama hatali")
         {
         }
 
-        protected AuthenticationErrorException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public AuthenticationErrorException(string? message) : base(message)
+        {
+        }
+
+        public AuthenticationErrorException(string? message, Exception? innerException) : base(message, innerException)
         {
         }
     }

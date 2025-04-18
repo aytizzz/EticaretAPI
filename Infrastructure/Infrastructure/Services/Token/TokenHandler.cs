@@ -21,7 +21,7 @@ namespace EticaretAPI.Infrastructure.Services.Token
             _configuration = configuration;
         }
 
-        public Application.DTOs.Token.Token CreateAccessToken(int minute)
+        public Application.DTOs.Token.Token CreateAccessToken(int second)
         {
             Application.DTOs.Token.Token token = new Application.DTOs.Token.Token();
 
@@ -32,7 +32,7 @@ namespace EticaretAPI.Infrastructure.Services.Token
             SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurityKey,SecurityAlgorithms.HmacSha256);
 
             // olusturalacak token ayarlaruni veriyoruz
-            token.Expiration = DateTime.UtcNow.AddMinutes( minute);
+            token.Expiration = DateTime.UtcNow.AddSeconds(second);
 
             JwtSecurityToken securityToken = new JwtSecurityToken(
             

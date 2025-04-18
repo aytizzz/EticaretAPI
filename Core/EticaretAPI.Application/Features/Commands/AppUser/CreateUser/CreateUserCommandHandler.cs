@@ -1,4 +1,6 @@
-﻿using EticaretAPI.Application.Exceptions;
+﻿using EticaretAPI.Application.Abstractions.Services;
+using EticaretAPI.Application.DTOs.User;
+using EticaretAPI.Application.Exceptions;
 using EticaretAPI.Domain.Entities.Identity;
 using MediatR;
 //using Microsoft.AspNet.Identity;
@@ -13,42 +15,31 @@ namespace EticaretAPI.Application.Features.Commands.AppUser.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest, CreateUserCommandResponse>
     {
-        private readonly UserManager<EticaretAPI.Domain.Entities.Identity.AppUser> _userManager;
+        readonly IUserService _userService;
 
-        public CreateUserCommandHandler(UserManager<Domain.Entities.Identity.AppUser> userManager)
+        public CreateUserCommandHandler(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
         public async Task<CreateUserCommandResponse> Handle(CreateUserCommandRequest request, CancellationToken cancellationToken)
         {
-            IdentityResult result = await _userManager.CreateAsync(new Domain.Entities.Identity.AppUser()
+            CreateUserResponse response=await _userService.CreatedAsync(new DTOs.User.CreateUser() 
+            { 
+                Email =request.Email,
+                NameSurname=request.NameSurname,
+                Password=request.Password,
+                PasswordConfirm=request.PasswordConfirm,
+                UserName=request.UserName
+            }
+            );
+
+            return new CreateUserCommandResponse()
             {
-                UserName = request.UserName,
-                Email = request.Email,
-                NameSurname = request.NameSurname,
-
-            }, request.Password);
-
-
-            CreateUserCommandResponse response = new CreateUserCommandResponse()
-            {
-                Succeeded = result.Succeeded 
+                Message = response.Message,
+                Succeeded = response.Succeeded,
             };
-
-            if (result.Succeeded)
-                //    response.Message = "Kullanici basariyla olusturulmusdur";
-                //else
-                //    foreach (var error in result.Errors)
-                //        response.Message += $"{error.GetHashCode}-{error.Description}";
-
-                return new CreateUserCommandResponse()
-                {
-                    Succeeded = true,
-                    Message = "Kullanici basariyla eklenmisdir"
-                };
-            throw new UserCreateFailedException();
-
+            // biz burada createuserresponse tipinde reesponse aliriq sonra onu commandresponse cevririeik
 
         }
     }

@@ -1,8 +1,10 @@
 ﻿using EticaretAPI.Application.Abstractions;
+using EticaretAPI.Application.Abstractions.Services;
 using EticaretAPI.Application.Repositories;
 using EticaretAPI.Domain.Entities.Identity;
 using EticaretAPI.Persistance.Contexts;
 using EticaretAPI.Persistance.Repositories;
+using EticaretAPI.Persistance.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +45,8 @@ public static class ServiceRegistration
 
         services.AddScoped<IFileReadRepository,FileReadRepository>();
         services.AddScoped<IFileWriteRepository,FileWriteRepository>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 
     }

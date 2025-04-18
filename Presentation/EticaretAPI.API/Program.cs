@@ -38,18 +38,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new()
         {
-            ValidateAudience = true,//Olusturulacak token de�erini kimlerin/hangi originlerin/sitelerin kullanacagi
+            ValidateAudience = true,//Olusturulacak token degerini kimlerin/hangi originlerin/sitelerin kullanacagi
                                     //belirlediyimiz degerdir
 
-            ValidateLifetime = true,//Olusturulacak token de�erini kimin dagitdigini ifade edececimiz sahe 
+            ValidateLifetime = true,    //Olusturulacak token degerini kimin dagitdigini ifade edececimiz sahe 
 
-            ValidateIssuer = true,          ////Olu�turulan token deyerinin siresini kontrol edecek olan do�rulamadir.
+            ValidateIssuer = true,          ////Olusturulan token deyerinin siresini kontrol edecek olan dogrulamadir.
 
             ValidateIssuerSigningKey = true, ////uretilecek token degerinin uygulamamiza ait bir deger oldugunu
-                                             ////ifade eden suciry key verisinin do�rulanmasidr.
+                                             ////ifade eden security key verisinin dogrulanmasidr.
             ValidAudience = builder.Configuration["Token:Audience"],
             ValidIssuer = builder.Configuration["Token:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"])),
+           LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires!=null ?expires>DateTime.UtcNow:false //?
+
 
         };
     });

@@ -11,5 +11,9 @@ namespace EticaretAPI.Application.Exceptions
         public NotFoundUserException() : base("Kullanci adi ve ya sifre hatali")
         {
         }
+
+        public NotFoundUserException(string? message) : base(message)
+        {
+        }
     }
 }
